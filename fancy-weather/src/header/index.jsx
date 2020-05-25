@@ -1,10 +1,13 @@
 import React, {PureComponent} from "react";
 import './header.css'
+import {Search} from "~/search";
+import {Controls} from "../controls";
 
 export class Header extends PureComponent {
     render() {
         return <header>
-            <div>controls</div> <div>search</div>
+            <Controls/>
+            <Search/>
         </header>
     }
 }

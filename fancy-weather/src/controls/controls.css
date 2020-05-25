@@ -1,0 +1,9 @@
+.controls {
+display: flex;
+}
+.dropdown {
+    margin-left: 10px;
+}
+.control-celcius {
+    margin-left: 10px;
+}
