@@ -4,6 +4,7 @@ import {withRouter} from "react-router-dom";
 import {connect} from "react-redux";
 import {appActions} from "./store/reducer";
 import {Header} from "./header";
+import {Main} from "./main";
 
 export const App = connect(() => ({}), appActions)(
     withRouter(
@@ -16,7 +17,7 @@ export const App = connect(() => ({}), appActions)(
             render() {
                 return <div className="main">
                     <Header />
-                    <main>main</main>
+                    <Main />
                 </div>
             }
         }

@@ -1,0 +1,9 @@
+.main-block {
+
+}
+.location {
+    font-size: 2em;
+    color: white;
+    border-radius: 5px;
+    background-color: rgba(0,0,0,.5);
+}

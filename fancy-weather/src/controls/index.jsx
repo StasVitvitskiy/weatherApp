@@ -1,5 +1,6 @@
 import React, {PureComponent} from "react";
 import "./controls.css"
+import spinner from '../images/spinner.svg'
 export class Controls extends PureComponent{
     render() {
         return <div className="controls">
@@ -15,8 +16,8 @@ export class Controls extends PureComponent{
                     <a className="dropdown-item" href="/minsk/be">BE</a>
                 </div>
             </div>
-            <button className='control-celcius'>Celcius</button>
-            <button className='control-fahrenheit'>Fahrenheit</button>
+            <button className='control-fahrenheit'>°F</button>
+            <button className='control-celcius'>°C</button>
         </div>
     }
 }

@@ -9,7 +9,7 @@ export class Search extends PureComponent {
     render() {
         return <form onSubmit={this.onSubmit} className="search-form">
             <input placeholder='find a city' type="text"/>
-            <button>Search</button>
+            <button className='search-button'>Search</button>
         </form>
     }
 }
