@@ -1,0 +1,17 @@
+.map-container {
+    display: flex;
+    font-size: x-large;
+    color: white;
+    border-radius: 5px;
+    background-color: rgba(0,0,0,.5);
+    height: 100%;
+    justify-content: center;
+}
+.map-container img {
+    width: 500px;
+    border-radius: 10px;
+    margin: 40px;
+}
+.coords {
+    text-align: center;
+}

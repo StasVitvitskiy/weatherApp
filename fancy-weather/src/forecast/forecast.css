@@ -1,0 +1,15 @@
+.forecast {
+    display: flex;
+    font-size: x-large;
+    color: white;
+    border-radius: 5px;
+    background-color: rgba(0,0,0,.5);
+    width: 100%;
+    margin-top: 10px;
+    justify-content: space-around;
+}
+.forecast div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

@@ -1,0 +1,27 @@
+.temperature {
+    color: white;
+    border-radius: 5px;
+    background-color: rgba(0,0,0,.5);
+    width: 100%;
+    margin-top: 10px;
+}
+.temperature-container {
+    display: flex;
+}
+.temperature h1 {
+    font-size: 10rem;
+}
+.temp_num {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.temp_info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.temp_info img {
+    width: 300px;
+}

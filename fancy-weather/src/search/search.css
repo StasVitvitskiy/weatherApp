@@ -1,5 +1,14 @@
 .search-form {
-
+    height: 84px;
+    margin: 5px;
+    padding: 20px;
+    border-radius: 5px;
+    background-color: rgba(0,0,0,.5);
+    width: 25%;
+    display: flex;
+}
+.search-form ::placeholder {
+    color: white;
 }
 .search-form input {
     flex: 1 1;
@@ -15,7 +24,7 @@
 }
 .search-button {
     width: 100px;
-    height: 42px;
+    height: 46px;
     overflow: hidden;
     font-weight: 700;
     font-size: 14px;

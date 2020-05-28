@@ -1,22 +1,18 @@
 import React from "react";
 import './date.css'
-export class DateComponent extends React.Component {
-    constructor() {
-        super();
+import {connect} from "react-redux";
 
-        let today = new Date(),
-            date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
-
-        this.state = {
-            date: date
-        };
-    }
+export const DateComponent = connect(
+    (state) => ({
+        date: state.date,
+    }),
+)(class DateComponent extends React.Component {
 
     render() {
         return (
             <div className='date'>
-                {this.state.date}
+                {this.props.date}
             </div>
         );
     }
-}
+})
