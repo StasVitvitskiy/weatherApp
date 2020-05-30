@@ -15,8 +15,9 @@ export const App = connect(() => ({}), appActions)(
                 city = city.replace(/-/g, " ");
                 this.props.setCityAndLang(city, lang)
                 this.props.requestWeather(city);
+                this.props.requestForecast(city,lang);
                 if(lang === 'be') {
-                    lang = 'ru';
+                    lang = 'by';
                 }
                 const formatter = new Intl.DateTimeFormat(lang, {
                     weekday: "long",

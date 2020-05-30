@@ -3,40 +3,33 @@ import './forecast.css'
 import cloudy from '../images/partlyCloudyDay.png'
 import rain from '../images/rain.png'
 import {connect} from "react-redux";
-import {appActions} from "../store/reducer";
+import {appActions} from "../store";
+
 export const Forecast = connect(
-    () => {},
+    (state) => ({
+        lang: state.lang,
+        forecast: state.forecast.list,
+    }),
     appActions
 )(class Forecast extends PureComponent {
+    get formatter(){
+        return new Intl.DateTimeFormat(this.props.lang, {
+            weekday: "long",
+        });
+    }
     render() {
         return <div className='forecast'>
-            <div>
+            {this.props.forecast.map(el => ({...el, dt_txt: el.dt_txt.split(' ')[0]}))
+                .filter((el, index, self) => self.findIndex(value => value.dt_txt === el.dt_txt) === index)
+                .slice(0,3).map(el => <div key={el.dt_txt}>
                 <div>
-                    <h3>Friday</h3>
+                    <h3>{this.formatter.format(new Date(el.dt_txt))}</h3>
                 </div>
                 <div>
-                    <h3>+24°</h3>
+                    <h3>{el.main.temp > 0 ? '+' : ''}{Math.round(el.main.temp)}°</h3>
                     <img srcSet={cloudy} alt=""/>
                 </div>
-            </div>
-            <div>
-                <div>
-                    <h3>Saturday</h3>
-                </div>
-                <div>
-                    <h3>+20°</h3>
-                    <img srcSet={rain} alt=""/>
-                </div>
-            </div>
-            <div>
-                <div>
-                    <h3>Sunday</h3>
-                </div>
-                <div>
-                    <h3>+18°</h3>
-                    <img srcSet={rain} alt=""/>
-                </div>
-            </div>
+            </div>)}
         </div>
     }
 })

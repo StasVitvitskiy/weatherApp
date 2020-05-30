@@ -33,7 +33,6 @@ export const defaultState = {
         },
     },
     query:'',
-    geolocation: {},
     geocoding: {
         results: [
             {
@@ -50,16 +49,15 @@ export const defaultState = {
             }
         ]
     },
+    forecast: {
+        list:[],
+    },
+
 }
 const weatherApi  = {
     key: '52d94542ad3e450386bb0fce08b6e9ee',
     base: 'https://api.openweathermap.org/data/2.5/'
 };
-export const geoLocationApi = {
-    key: '60bae32abe5d50',
-    base: 'https://ipinfo.io/json',
-    googleApiKey: 'AIzaSyCjPHRv70EKLCeiZ5R7fbR5qwf-cDrveTw'
-}
 const geoCodingApi = {
     key:'72e74402141c470aaa4562243dffec7a',
     base: 'https://api.opencagedata.com/geocode/v1/json'
@@ -74,8 +72,8 @@ export const appActions = createActions({
     SET_DATE:(date) => ({date}),
     SET_WEATHER:(weather) => ({weather}),
     SET_QUERY:(query) => ({query}),
-    SET_GEO_LOCATION:(geolocation) => ({geolocation}),
-    SET_GEO_CODING:(geocoding) => ({geocoding})
+    SET_GEO_CODING:(geocoding) => ({geocoding}),
+    SET_FORECAST:(forecast) => ({forecast}),
 })
 appActions.requestWeather = (query) => (dispatch) => {
     fetch(`${weatherApi.base}weather?q=${query}&units=metric&APPID=${weatherApi.key}`)
@@ -89,15 +87,21 @@ appActions.requestWeather = (query) => (dispatch) => {
             dispatch(appActions.setGeoCoding(response))
         });
 }
-
+appActions.requestForecast = (city,lang) => (dispatch) => {
+    fetch(`${weatherApi.base}/forecast?q=${city}&lang=${lang}&units=Metric&APPID=${weatherApi.key}`)
+        .then(response => response.json())
+        .then(resp => {
+            dispatch(appActions.setForecast(resp))
+        })
+}
 export const rootReducer = (state = defaultState, action) => {
     switch (action.type) {
         case appActions.setCityAndLang.toString():
         case appActions.setDate.toString():
         case appActions.setWeather.toString():
         case appActions.setQuery.toString():
-        case appActions.setGeoLocation.toString():
         case appActions.setGeoCoding.toString():
+        case appActions.setForecast.toString():
             return {
                 ...state,
                 ...action.payload,

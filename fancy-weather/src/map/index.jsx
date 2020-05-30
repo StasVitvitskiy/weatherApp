@@ -2,7 +2,7 @@ import React, {PureComponent} from 'react'
 import './map.css'
 import map from '../images/map.png'
 import {connect} from "react-redux";
-import {appActions} from "../store/reducer";
+import {appActions} from "../store";
 export const Map = connect(
     (state) => ({
         lat: state.geocoding.results[0].bounds.northeast.lat,
