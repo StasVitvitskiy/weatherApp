@@ -5,6 +5,7 @@ import React from "react"
 import {BrowserRouter as Router, Redirect, Route, Switch} from "react-router-dom"
 import {Provider} from "react-redux";
 import {store} from "./store";
+import {Geolocation} from "./geolocation";
 
 render(<Router>
     <Provider store={store}>
@@ -13,7 +14,7 @@ render(<Router>
                 <App />
             </Route>
             <Route>
-                <Redirect to="/minsk/en" />
+                <Geolocation />
             </Route>
         </Switch>
     </Provider>

@@ -2,7 +2,7 @@ import './app.css'
 import React, {PureComponent} from "react";
 import {withRouter} from "react-router-dom";
 import {connect} from "react-redux";
-import {appActions} from "./store/reducer";
+import {appActions} from "./store";
 import {Header} from "./header";
 import {Main} from "./main";
 import defaultBG from '~/images/defaultBackground.jpeg'
@@ -12,7 +12,9 @@ export const App = connect(() => ({}), appActions)(
         class App extends PureComponent {
             componentDidMount() {
                 let {match: {params: {city, lang}}} = this.props
+                city = city.replace(/-/g, " ");
                 this.props.setCityAndLang(city, lang)
+                this.props.requestWeather(city);
                 if(lang === 'be') {
                     lang = 'ru';
                 }

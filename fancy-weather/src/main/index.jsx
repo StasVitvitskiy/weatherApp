@@ -4,12 +4,18 @@ import {DateComponent} from "../date/date";
 import {Temperature} from '../temperature/index'
 import {Forecast} from "../forecast";
 import {Map} from "../map";
-export class Main extends PureComponent {
+import {appActions} from "../store/reducer";
+import {connect} from "react-redux";
+
+export const Main = connect((state)=> ({
+    name: state.weather.name,
+    country: state.weather.sys.country,
+}), appActions)(class Main extends PureComponent {
     render() {
         return <main className='main-block'>
             <div>
             <div>
-                <h1 className='location'>MOUNT VERNON, UNITED STATES OF AMERICA</h1>
+                <h1 className='location'>{this.props.name}, {this.props.country}</h1>
             </div>
             <DateComponent/>
             <Temperature/>
@@ -20,5 +26,5 @@ export class Main extends PureComponent {
             </div>
         </main>
     }
-}
+})
 

@@ -4,7 +4,10 @@ import map from '../images/map.png'
 import {connect} from "react-redux";
 import {appActions} from "../store/reducer";
 export const Map = connect(
-    () => {},
+    (state) => ({
+        lat: state.geocoding.results[0].bounds.northeast.lat,
+        lng: state.geocoding.results[0].bounds.northeast.lng,
+    }),
     appActions
     )(class Map extends PureComponent {
         render() {
@@ -12,8 +15,8 @@ export const Map = connect(
                 <div>
                     <img srcSet={map} alt=""/>
                     <div className='coords'>
-                        <div>Latitude: 48° 5' 1.73508'' N</div>
-                        <div>Longitude: 121° 58' 8.59512'' W</div>
+                        <div>Latitude: {this.props.lat}'' N</div>
+                        <div>Longitude: {this.props.lng}'' W</div>
                     </div>
                 </div>
             </div>
