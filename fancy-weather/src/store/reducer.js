@@ -17,7 +17,7 @@ export const defaultState = {
         },
         weather: [
               {
-                id: 800,
+                id: 0,
                 main: "Clear",
                 description: "clear sky",
                 icon: "01d"
@@ -28,26 +28,18 @@ export const defaultState = {
             deg: 90
         },
         coord: {
-            lon: -0.13,
-            lat: 51.51
+            lon: 0,
+            lat: 0
         },
     },
     query:'',
     geocoding: {
-        results: [
-            {
-                bounds: {
-                    northeast: {
-                        lat: 53.9717897,
-                        lng: 28.0608997
-                    },
-                    southwest: {
-                        lat: 53.793847,
-                        lng: 27.3740176
-                    }
-                },
-            }
-        ]
+        location: {
+            accuracy_radius: 0,
+            latitude: 0,
+            longitude: 0,
+            metro_code: 0,
+            time_zone: ""}
     },
     forecast: {
         list:[],
@@ -61,6 +53,10 @@ const weatherApi  = {
 const geoCodingApi = {
     key:'72e74402141c470aaa4562243dffec7a',
     base: 'https://api.opencagedata.com/geocode/v1/json'
+}
+export const mapBoxApi = {
+    key: 'pk.eyJ1Ijoic3Rhc3ZpdHZpdHNraXkiLCJhIjoiY2thdThlZGlpMTRudDJza3lnbGd4eXJiYiJ9.5i5W4LcUPvY-vmWIvWVYjw',
+    base: ''
 }
 /*
 * {
@@ -80,12 +76,10 @@ appActions.requestWeather = (query) => (dispatch) => {
         .then(response => response.json())
         .then(resp => {
             dispatch(appActions.setWeather(resp))
-            return fetch(`${geoCodingApi.base}?q=${query}&key=${geoCodingApi.key}&pretty=1&no_annotations=1`);
+            geoip2.city(resp => {
+                dispatch(appActions.setGeoCoding(resp))
+            })
         })
-        .then(result => result.json())
-        .then(response => {
-            dispatch(appActions.setGeoCoding(response))
-        });
 }
 appActions.requestForecast = (city,lang) => (dispatch) => {
     fetch(`${weatherApi.base}/forecast?q=${city}&lang=${lang}&units=Metric&APPID=${weatherApi.key}`)
