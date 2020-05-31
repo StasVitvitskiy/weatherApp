@@ -4,7 +4,7 @@ import {DateComponent} from "../date/date";
 import {Temperature} from '../temperature/index'
 import {Forecast} from "../forecast";
 import {Map} from "../map";
-import {appActions} from "../store/reducer";
+import {appActions} from "../store";
 import {connect} from "react-redux";
 
 export const Main = connect((state)=> ({

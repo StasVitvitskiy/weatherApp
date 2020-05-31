@@ -44,6 +44,7 @@ export const defaultState = {
     forecast: {
         list:[],
     },
+    backgroundImage: '',
 
 }
 const weatherApi  = {
@@ -58,6 +59,11 @@ export const mapBoxApi = {
     key: 'pk.eyJ1Ijoic3Rhc3ZpdHZpdHNraXkiLCJhIjoiY2thdThlZGlpMTRudDJza3lnbGd4eXJiYiJ9.5i5W4LcUPvY-vmWIvWVYjw',
     base: ''
 }
+const unsplashApi = {
+    key: 'cMhNke50fLaQO0Givz-syfIrmTFv9UCuHfw0Ipc0Uzk',
+    secretKey: 'dqpU33a11ciLG7XXJVP9l6nP4pBgktawDdXnI_-GLvo',
+    base: 'https://api.unsplash.com/photos/'
+}
 /*
 * {
 *   setCityAndLang: (city, lang) => ({city, lang}) // {type: 'SET_CITY_AND_LANG', payload: {city, lang}
@@ -70,6 +76,7 @@ export const appActions = createActions({
     SET_QUERY:(query) => ({query}),
     SET_GEO_CODING:(geocoding) => ({geocoding}),
     SET_FORECAST:(forecast) => ({forecast}),
+    SET_BACKGROUND_IMAGE:(backgroundImage) => ({backgroundImage}),
 })
 appActions.requestWeather = (query) => (dispatch) => {
     fetch(`${weatherApi.base}weather?q=${query}&units=metric&APPID=${weatherApi.key}`)
@@ -88,6 +95,13 @@ appActions.requestForecast = (city,lang) => (dispatch) => {
             dispatch(appActions.setForecast(resp))
         })
 }
+appActions.requestBackgroundImage = () => (dispatch) => {
+    fetch(`${unsplashApi.base}/random?orientation=landscape&per_page=1&query=nature&client_id=${unsplashApi.key}`)
+        .then(response => response.json())
+        .then(resp => {
+            dispatch(appActions.setBackgroundImage(resp.urls.full));
+        })
+}
 export const rootReducer = (state = defaultState, action) => {
     switch (action.type) {
         case appActions.setCityAndLang.toString():
@@ -96,6 +110,7 @@ export const rootReducer = (state = defaultState, action) => {
         case appActions.setQuery.toString():
         case appActions.setGeoCoding.toString():
         case appActions.setForecast.toString():
+        case appActions.setBackgroundImage.toString():
             return {
                 ...state,
                 ...action.payload,

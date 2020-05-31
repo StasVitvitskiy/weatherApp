@@ -5,9 +5,10 @@ import {connect} from "react-redux";
 import {appActions} from "./store";
 import {Header} from "./header";
 import {Main} from "./main";
-import defaultBG from '~/images/defaultBackground.jpeg'
 
-export const App = connect(() => ({}), appActions)(
+export const App = connect((state) => ({
+    backgroundImage:state.backgroundImage
+}), appActions)(
     withRouter(
         class App extends PureComponent {
             componentDidMount() {
@@ -16,6 +17,7 @@ export const App = connect(() => ({}), appActions)(
                 this.props.setCityAndLang(city, lang)
                 this.props.requestWeather(city);
                 this.props.requestForecast(city,lang);
+                this.props.requestBackgroundImage();
                 if(lang === 'be') {
                     lang = 'by';
                 }
@@ -38,7 +40,7 @@ export const App = connect(() => ({}), appActions)(
 
             render() {
                 return <div style={{
-                    background: `url(${defaultBG})`
+                    background: `url(${this.props.backgroundImage})`
                 }} className="main">
                     <Header />
                     <Main />
