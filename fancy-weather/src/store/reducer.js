@@ -93,9 +93,6 @@ appActions.requestWeather = (query,lang) => (dispatch) => {
         .then(response => response.json())
         .then(resp => {
             dispatch(appActions.setWeather(resp))
-            geoip2.city(resp => {
-                dispatch(appActions.setGeoCoding(resp))
-            })
         })
 }
 appActions.requestForecast = (city,lang) => (dispatch) => {
