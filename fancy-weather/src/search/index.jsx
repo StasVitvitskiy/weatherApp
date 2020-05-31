@@ -7,6 +7,7 @@ export const Search = connect(
     (state) => ({
         query: state.query,
         lang: state.lang,
+        i18n:state.i18n,
     })
 ,appActions)(
     class Search extends PureComponent {
@@ -29,13 +30,13 @@ export const Search = connect(
     render() {
         return <form onSubmit={this.onSubmit} className="search-form">
             <input
-                placeholder='find a city'
+                placeholder={this.props.i18n.findCity}
                 type="text"
                 onChange={this.onChange}
                 value={this.props.query}
                 onKeyPress={this.onKeyPress}
             />
-            <button className='search-button'>Search</button>
+            <button className='search-button'>{this.props.i18n.search}</button>
         </form>
     }
 })

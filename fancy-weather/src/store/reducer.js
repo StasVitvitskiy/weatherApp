@@ -45,6 +45,13 @@ export const defaultState = {
         list:[],
     },
     backgroundImage: '',
+    i18n: {
+        "findCity": "",
+        "search": "",
+        "feelsLike": "",
+        "wind": "",
+        "humidity": ""
+    },
 
 }
 const weatherApi  = {
@@ -77,9 +84,10 @@ export const appActions = createActions({
     SET_GEO_CODING:(geocoding) => ({geocoding}),
     SET_FORECAST:(forecast) => ({forecast}),
     SET_BACKGROUND_IMAGE:(backgroundImage) => ({backgroundImage}),
+    SET_I18N:(i18n) => ({i18n}),
 })
-appActions.requestWeather = (query) => (dispatch) => {
-    fetch(`${weatherApi.base}weather?q=${query}&units=metric&APPID=${weatherApi.key}`)
+appActions.requestWeather = (query,lang) => (dispatch) => {
+    fetch(`${weatherApi.base}weather?q=${query}&lang=${lang}&units=metric&APPID=${weatherApi.key}`)
         .then(response => response.json())
         .then(resp => {
             dispatch(appActions.setWeather(resp))
@@ -111,6 +119,7 @@ export const rootReducer = (state = defaultState, action) => {
         case appActions.setGeoCoding.toString():
         case appActions.setForecast.toString():
         case appActions.setBackgroundImage.toString():
+        case appActions.setI18n.toString():
             return {
                 ...state,
                 ...action.payload,

@@ -19,7 +19,6 @@ export const Forecast = connect(
         });
     }
     getIcon(description) {
-        console.log(description)
         if(description.toLowerCase().includes('rain')) {
             return rain;
         }

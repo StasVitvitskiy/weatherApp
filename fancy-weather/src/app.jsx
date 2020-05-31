@@ -5,6 +5,15 @@ import {connect} from "react-redux";
 import {appActions} from "./store";
 import {Header} from "./header";
 import {Main} from "./main";
+import en from './i18n/en.json'
+import ru from './i18n/ru.json'
+import be from './i18n/be.json'
+
+const i18n = {
+    en,
+    ru,
+    be,
+}
 
 export const App = connect((state) => ({
     backgroundImage:state.backgroundImage
@@ -15,12 +24,10 @@ export const App = connect((state) => ({
                 let {match: {params: {city, lang}}} = this.props
                 city = city.replace(/-/g, " ");
                 this.props.setCityAndLang(city, lang)
-                this.props.requestWeather(city);
+                this.props.requestWeather(city,lang);
                 this.props.requestForecast(city,lang);
                 this.props.requestBackgroundImage();
-                if(lang === 'be') {
-                    lang = 'by';
-                }
+                this.props.setI18n(i18n[lang]);
                 const formatter = new Intl.DateTimeFormat(lang, {
                     weekday: "long",
                     year: "numeric",

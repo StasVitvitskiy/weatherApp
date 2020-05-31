@@ -5,7 +5,8 @@ import {connect} from "react-redux";
 
 export const Controls = connect(
     (state) => ({
-        lang: state.lang
+        lang: state.lang,
+        city: state.city,
     }),
 )(class Controls extends PureComponent{
     render() {
@@ -19,9 +20,9 @@ export const Controls = connect(
                     {String(this.props.lang).toUpperCase()}
                 </button>
                 <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a className="dropdown-item" href="/minsk/en">EN</a>
-                    <a className="dropdown-item" href="/minsk/ru">RU</a>
-                    <a className="dropdown-item" href="/minsk/be">BE</a>
+                    <a className="dropdown-item" href={`/${this.props.city}/en`}>EN</a>
+                    <a className="dropdown-item" href={`/${this.props.city}/ru`}>RU</a>
+                    <a className="dropdown-item" href={`/${this.props.city}/be`}>BE</a>
                 </div>
             </div>
             <button className='control-fahrenheit'>°F</button>
