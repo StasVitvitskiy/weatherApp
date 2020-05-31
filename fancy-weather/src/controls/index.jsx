@@ -27,8 +27,12 @@ export const Controls = connect(
                     <a className="dropdown-item" href={`/${this.props.city}/be`}>BE</a>
                 </div>
             </div>
-            <button className='control-fahrenheit'>°F</button>
-            <button className='control-celcius'>°C</button>
+            <button onClick={() => {
+                this.props.setUnits('F')
+            }} className='control-fahrenheit'>°F</button>
+            <button onClick={() => {
+                this.props.setUnits('C')
+            }} className='control-celcius'>°C</button>
         </div>
     }
 })

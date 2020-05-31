@@ -13,7 +13,8 @@ export const Temperature = connect(
         wind: state.weather.wind.speed,
         humidity: state.weather.main.humidity,
         main: state.weather.weather[0].main,
-        i18n: state.i18n
+        i18n: state.i18n,
+        units: state.units
     })
 )(class Temperature extends PureComponent {
     get icon(){
@@ -27,17 +28,23 @@ export const Temperature = connect(
             return partlyCloudy;
         }
     }
+     getTemperature(temperature){
+        if(this.props.units === 'F') {
+            return (temperature* 9/5) + 32;
+        }
+        return temperature;
+    }
     render() {
         return <div className='temperature'>
             <div className='temperature-container'>
                <div className='temp_num'>
-                   <h1> {this.props.temperature > 0 ? '+' : ''}{Math.round(this.props.temperature)}°</h1>
+                   <h1> {this.getTemperature(this.props.temperature) > 0 ? '+' : ''}{Math.round(this.getTemperature(this.props.temperature))}{this.props.units}°</h1>
                </div>
                 <div className='temp_info'>
                     <img src={this.icon} alt=""/>
                     <span>
                         <h2>{String(this.props.description).toUpperCase()}</h2>
-                        <h2>{this.props.i18n.feelsLike.toUpperCase()}: {String(this.props.feels_like).toUpperCase()}°</h2>
+                        <h2>{this.props.i18n.feelsLike.toUpperCase()}: {String(this.getTemperature(this.props.feels_like)).toUpperCase()}{this.props.units}°</h2>
                         <h2>{this.props.i18n.wind.toUpperCase()}: {String(this.props.wind).toUpperCase()} M/S</h2>
                         <h2>{this.props.i18n.humidity.toUpperCase()}: {String(this.props.humidity).toUpperCase()}%</h2>
                     </span>

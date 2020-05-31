@@ -52,6 +52,7 @@ export const defaultState = {
         "wind": "",
         "humidity": ""
     },
+    units: 'C',
 
 }
 const weatherApi  = {
@@ -85,6 +86,7 @@ export const appActions = createActions({
     SET_FORECAST:(forecast) => ({forecast}),
     SET_BACKGROUND_IMAGE:(backgroundImage) => ({backgroundImage}),
     SET_I18N:(i18n) => ({i18n}),
+    SET_UNITS:(units) => ({units})
 })
 appActions.requestWeather = (query,lang) => (dispatch) => {
     fetch(`${weatherApi.base}weather?q=${query}&lang=${lang}&units=metric&APPID=${weatherApi.key}`)
@@ -125,6 +127,7 @@ export const rootReducer = (state = defaultState, action) => {
         case appActions.setForecast.toString():
         case appActions.setBackgroundImage.toString():
         case appActions.setI18n.toString():
+        case appActions.setUnits.toString():
             return {
                 ...state,
                 ...action.payload,

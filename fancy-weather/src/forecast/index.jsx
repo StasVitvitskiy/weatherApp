@@ -10,6 +10,7 @@ export const Forecast = connect(
     (state) => ({
         lang: state.lang,
         forecast: state.forecast.list,
+        units: state.units
     }),
     appActions
 )(class Forecast extends PureComponent {
@@ -29,6 +30,12 @@ export const Forecast = connect(
             return partlyCloudy;
         }
     }
+    getTemperature(temperature){
+        if(this.props.units === 'F') {
+            return (temperature* 9/5) + 32;
+        }
+        return temperature;
+    }
     render() {
         return <div className='forecast'>
             {this.props.forecast.map(el => ({...el, dt_txt: el.dt_txt.split(' ')[0]}))
@@ -38,7 +45,7 @@ export const Forecast = connect(
                     <h3>{this.formatter.format(new Date(el.dt_txt))}</h3>
                 </div>
                 <div>
-                    <h3>{el.main.temp > 0 ? '+' : ''}{Math.round(el.main.temp)}°</h3>
+                    <h3>{this.getTemperature(el.main.temp) > 0 ? '+' : ''}{Math.round(this.getTemperature(el.main.temp))}{this.props.units}°</h3>
                     <img src={this.getIcon(el.weather[0].main)} alt=""/>
                 </div>
             </div>)}
