@@ -2,16 +2,18 @@ import React, {PureComponent} from "react";
 import "./controls.css"
 import spinner from '../images/spinner.svg'
 import {connect} from "react-redux";
+import {appActions} from "../store";
 
 export const Controls = connect(
     (state) => ({
         lang: state.lang,
         city: state.city,
     }),
+    appActions
 )(class Controls extends PureComponent{
     render() {
         return <div className="controls">
-            <button className='control-refresh'>
+            <button onClick={this.props.refresh} className='control-refresh'>
                 <i className='spinner' dangerouslySetInnerHTML={{ __html: spinner }} />
             </button>
             <div className="dropdown">

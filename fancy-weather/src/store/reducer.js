@@ -110,6 +110,11 @@ appActions.requestBackgroundImage = () => (dispatch) => {
             dispatch(appActions.setBackgroundImage(resp.urls.full));
         })
 }
+appActions.refresh = () => (dispatch, getState) => {
+    const {city, lang} = getState()
+    dispatch(appActions.requestWeather(city,lang))
+    dispatch(appActions.requestForecast(city,lang))
+}
 export const rootReducer = (state = defaultState, action) => {
     switch (action.type) {
         case appActions.setCityAndLang.toString():
