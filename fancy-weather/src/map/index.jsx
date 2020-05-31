@@ -3,10 +3,13 @@ import './map.css'
 import map from '../images/map.png'
 import {connect} from "react-redux";
 import {appActions, mapBoxApi} from "../store";
+import sunny from '../images/sunny.png'
+import rain from '../images/rain.png'
+import cloudy from '../images/partlyCloudyDay.png'
 export const Map = connect(
     (state) => ({
-        lat: state.geocoding.location.latitude,
-        lng: state.geocoding.location.longitude,
+        lat: state.weather.coord.lat,
+        lng: state.weather.coord.lon,
     }),
     appActions
     )(class Map extends PureComponent {

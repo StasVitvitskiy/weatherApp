@@ -1,9 +1,10 @@
 import React, {PureComponent} from 'react'
 import './forecast.css'
-import cloudy from '../images/partlyCloudyDay.png'
 import rain from '../images/rain.png'
 import {connect} from "react-redux";
 import {appActions} from "../store";
+import sunny from "../images/sunny.png";
+import partlyCloudy from "../images/partlyCloudyDay.png";
 
 export const Forecast = connect(
     (state) => ({
@@ -17,6 +18,18 @@ export const Forecast = connect(
             weekday: "long",
         });
     }
+    getIcon(description) {
+        console.log(description)
+        if(description.toLowerCase().includes('rain')) {
+            return rain;
+        }
+        if(description.toLowerCase().includes('sun') || description.toLowerCase().includes('clear')) {
+            return sunny;
+        }
+        if(description.toLowerCase().includes('part') || description.toLowerCase().includes('clouds')) {
+            return partlyCloudy;
+        }
+    }
     render() {
         return <div className='forecast'>
             {this.props.forecast.map(el => ({...el, dt_txt: el.dt_txt.split(' ')[0]}))
@@ -27,7 +40,7 @@ export const Forecast = connect(
                 </div>
                 <div>
                     <h3>{el.main.temp > 0 ? '+' : ''}{Math.round(el.main.temp)}°</h3>
-                    <img srcSet={cloudy} alt=""/>
+                    <img src={this.getIcon(el.weather[0].main)} alt=""/>
                 </div>
             </div>)}
         </div>
