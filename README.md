@@ -1,2 +1,1 @@
-# stasvitvitskiy-RS2020Q1
-Private repository for @stasvitvitskiy
+# https://stasvitvitskiy-fancy-weather.netlify.app
